@@ -453,6 +453,12 @@ public class RNPushNotificationHelper {
         notificationManager.cancel(Integer.parseInt(notificationIDString));
     }
 
+    public void cancelNotification(String tag, String notificationIDString) {
+        Log.i(LOG_TAG, "Cancelling notification: " + notificationIDString + ", tag: " + tag);
+        NotificationManager notificationManager = notificationManager();
+        notificationManager.cancel(tag, Integer.parseInt(notificationIDString));
+    }
+
     private NotificationManager notificationManager() {
         return (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }

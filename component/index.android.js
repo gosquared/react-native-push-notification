@@ -30,6 +30,10 @@ NotificationsComponent.prototype.requestPermissions = function(senderID: string)
 	RNPushNotification.requestPermissions(senderID);
 };
 
+NotificationsComponent.prototype.cancelNotification = function(tag: String, notificationID: String) {
+	RNPushNotification.cancelNotification(tag, notificationID);
+};
+
 NotificationsComponent.prototype.cancelLocalNotifications = function(details: Object) {
 	RNPushNotification.cancelLocalNotifications(details);
 };
@@ -112,4 +116,3 @@ module.exports = {
 	state: false,
 	component: new NotificationsComponent()
 };
-

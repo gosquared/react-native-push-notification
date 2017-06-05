@@ -280,6 +280,10 @@ Notifications.scheduleLocalNotification = function() {
 	return this.callNative('scheduleLocalNotification', arguments);
 };
 
+Notifications.cancelNotification = function() {
+	return this.callNative('cancelNotification', arguments);
+};
+
 Notifications.cancelLocalNotifications = function() {
 	return this.callNative('cancelLocalNotifications', arguments);
 };
