@@ -205,10 +205,10 @@ Notifications._onRemoteFetch = function(notificationData: Object) {
 	}
 };
 
-Notifications._onNotification = function(data, isFromBackground = null) {
+Notifications._onNotification = function(notification, isFromBackground = null) {
 	if ( isFromBackground === null ) {
 		isFromBackground = (
-			data.foreground === false ||
+			notification.foreground === false ||
 			AppState.currentState === 'background'
 		);
 	}
@@ -218,16 +218,16 @@ Notifications._onNotification = function(data, isFromBackground = null) {
 			this.onNotification({
 				foreground: ! isFromBackground,
 				userInteraction: isFromBackground,
-				message: data.getMessage(),
-				data: data.getData(),
-				badge: data.getBadgeCount(),
-				alert: data.getAlert(),
-				sound: data.getSound()
+				message: notification.getMessage(),
+				data: notification.getData(),
+				badge: notification.getBadgeCount(),
+				alert: notification.getAlert(),
+				sound: notification.getSound()
 			});
 		} else {
 			var notificationData = {
 				foreground: ! isFromBackground,
-				...data
+				...notification
 			};
 
 			if ( typeof notificationData.data === 'string' ) {
