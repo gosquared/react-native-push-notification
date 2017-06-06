@@ -229,6 +229,7 @@ Notifications._onNotification = function(notification, isFromBackground = null) 
 			var data = notification.getData();
 			if ( data.data && typeof data.data === 'string' ) {
 				// Remote notification
+				if (data.notificationId) notificationData.id = data.notificationId;
 				try {
 					notificationData.data = JSON.parse(data.data);
 				} catch (e) {
