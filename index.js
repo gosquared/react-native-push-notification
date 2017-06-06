@@ -214,18 +214,32 @@ Notifications._onNotification = function(notification, isFromBackground = null) 
 	}
 
 	if ( this.onNotification !== false ) {
+		var notificationData;
+
 		if ( Platform.OS === 'ios' ) {
-			this.onNotification({
+			notificationData = {
 				foreground: ! isFromBackground,
 				userInteraction: isFromBackground,
 				message: notification.getMessage(),
-				data: notification.getData(),
 				badge: notification.getBadgeCount(),
 				alert: notification.getAlert(),
 				sound: notification.getSound()
-			});
+			};
+
+			var data = notification.getData();
+			if ( data.data && typeof data.data === 'string' ) {
+				// Remote notification
+				try {
+					notificationData.data = JSON.parse(data.data);
+				} catch (e) {
+					/* void */
+				}
+			} else {
+				// Local notification
+				notificationData.data = data;
+			}
 		} else {
-			var notificationData = {
+			notificationData = {
 				foreground: ! isFromBackground,
 				...notification
 			};
@@ -237,9 +251,9 @@ Notifications._onNotification = function(notification, isFromBackground = null) 
 					/* void */
 				}
 			}
-
-			this.onNotification(notificationData);
 		}
+
+		this.onNotification(notificationData);
 	}
 };
 
